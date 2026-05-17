@@ -10,12 +10,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+
 @NoArgsConstructor
 @Setter
 @Getter
 @Entity
 @Table(name = "newtable")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,6 +27,7 @@ public class User {
     private Instant created_at;
 
     public User(String name, String email, Integer age) {
+
         this.name = name;
         this.email = email;
         this.age = age;

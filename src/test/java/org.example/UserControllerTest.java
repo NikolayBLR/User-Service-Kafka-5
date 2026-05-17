@@ -1,8 +1,8 @@
 package org.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.dto.RequestUser;
 import org.example.dto.ResponseUser;
+import org.example.dto.RequestUser;
 import org.example.exception.UserNotFoundException;
 import org.example.service.UserService;
 import org.hamcrest.CoreMatchers;
@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
@@ -43,9 +42,9 @@ public class UserControllerTest {
     @Test
     public void givenRequestUser_whenSaveUser_thenResponseUser() throws Exception {
         //given
-        RequestUser requestUser = new RequestUser("Nikolay");
-        ResponseUser user = new ResponseUser("Nikolay","email", 25);
-        BDDMockito.given(userService.saveUser(any(ResponseUser.class))).willReturn(requestUser);
+        ResponseUser requestUser = new ResponseUser("Nikolay");
+        RequestUser user = new RequestUser("Nikolay","email", 25);
+        BDDMockito.given(userService.saveUser(any(RequestUser.class))).willReturn(requestUser);
 
         //when
         ResultActions resultActions = mockMvc.perform(post("/api/user")
@@ -62,9 +61,9 @@ public class UserControllerTest {
     @Test
     public void givenRequestUpdateUser_whenUpdateUser_thenRequestUpdateUser() throws Exception {
         //given
-        RequestUser requestUser = new RequestUser("Nikolay");
-        ResponseUser responseUser = new ResponseUser("Nikolay","email",25);
-        BDDMockito.given(userService.updateUser(anyInt(),any(ResponseUser.class))).willReturn(requestUser);
+        ResponseUser requestUser = new ResponseUser("Nikolay");
+        RequestUser responseUser = new RequestUser("Nikolay","email",25);
+        BDDMockito.given(userService.updateUser(anyInt(),any(RequestUser.class))).willReturn(requestUser);
 
         //when
         ResultActions resultActions = mockMvc.perform(put("/api/user/1")
@@ -81,9 +80,9 @@ public class UserControllerTest {
     @Test
     public void givenRequestUpdateUser_whenUpdateUser_thenNotFoundException() throws Exception {
         //given
-        RequestUser requestUser = new RequestUser("Nikolay");
-        ResponseUser responseUser = new ResponseUser("Nikolay","email",25);
-        BDDMockito.given(userService.updateUser(anyInt(),any(ResponseUser.class))).willThrow(new UserNotFoundException("User not found"));
+        ResponseUser requestUser = new ResponseUser("Nikolay");
+        RequestUser responseUser = new RequestUser("Nikolay","email",25);
+        BDDMockito.given(userService.updateUser(anyInt(),any(RequestUser.class))).willThrow(new UserNotFoundException("User not found"));
 
 
         //when
@@ -99,7 +98,7 @@ public class UserControllerTest {
     @Test
     public void givenRequestUser_whenGetUser_thenRequestUser() throws Exception {
         //given
-        RequestUser requestUser = new RequestUser("Nikolay");
+        ResponseUser requestUser = new ResponseUser("Nikolay");
         BDDMockito.given(userService.getUser(anyInt())).willReturn(requestUser);
 
 
@@ -133,7 +132,7 @@ public class UserControllerTest {
     @Test
     public void givenRequestUser_whenDeleteUser_thenRequestUser() throws Exception {
         //given
-        RequestUser requestUser = new RequestUser("Nikolay");
+        ResponseUser requestUser = new ResponseUser("Nikolay");
         BDDMockito.given(userService.deleteUser(anyInt())).willReturn(requestUser);
 
 

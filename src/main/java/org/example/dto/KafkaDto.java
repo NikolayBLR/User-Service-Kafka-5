@@ -2,16 +2,15 @@ package org.example.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@ToString
-public class ResponseUser {
+public class KafkaDto {
 
-    private String name;
     private String email;
+    private String message;
 }
-
